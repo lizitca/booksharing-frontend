@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+<meta charset="utf-8" />
+
+<title>Мой Профиль</title>
+<link rel="stylesheet" href="http://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
+<link rel="stylesheet" href="http://bootstraptema.ru/plugins/font-awesome/4-4-0/font-awesome.min.css" />
+<style type="text/css">
+
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
+	body {
+		width: 100%;
+		height: 100%;
+		color:#333;
+		background: #fff;
+		font-family: "Segoe UI", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-size:0.94em;
+		line-height:135%;
+
+	}
+
+	aside, nav, footer, header, section { display: block; }
+
+	ul {
+		list-style:none;
+	}
+
+	a {
+		text-decoration:none;
+	}
+
+	a:hover {
+		text-decoration: none;
+	}
+
+
+	#wrapper {
+		margin-top:40px;
+		width: 1200px;
+		margin: 0 auto;
+		height: auto !important;
+	}
+
+	.header{
+		width:100%;
+		background: #0dbfe5;
+		height:57px;
+		z-index: 4;
+	}
+
+	#headerInner {
+
+		position:relative;
+		border:0px solid #333;
+		width:1200px;
+		height:250px;
+		margin:0 auto;
+		margin-top:0px;
+	}
+	#content {
+		margin-top:40px;
+	}
+
+	#content #colLeft {
+		background: #fff;
+		float:left;
+		width:800px;
+		margin-right:0px;
+	}
+
+	#content #colRight {
+		margin-left:45px;
+		float:left;
+		width:350px;
+		position:relative;
+	}
+
+	#middle:after {
+		content: '.';
+		display: block;
+		clear: both;
+		visibility: hidden;
+		height: 0;
+	}
+
+	.topMenuRight {
+		height:57px;
+		position:absolute;
+		left:0px;
+		top:0px;
+		border: 0px solid #1FA2E1;
+	}
+
+	.topMenuRight ul li {
+		background: url(images/line.png) 0px 0px no-repeat;
+		float:left;
+		height: 57px;
+	}
+
+	.topMenuRight ul {
+		padding-left:0px;
+	}
+
+	.topMenuRight ul li a{
+		margin-top:0px;
+		font-weight:100;
+		border-right:0px solid #adadad;
+		display:block;
+		color:#fff;
+		text-decoration:none;
+		line-height:20px;
+		font-size:18px;
+		padding:16px 20px 21px 20px;
+	}
+
+	.topMenuRight ul li a:hover{
+		background: #fff;
+		color:#555;
+	}
+
+	.share-new {
+		z-index: 1;
+		position:absolute;
+		right:0px;
+		top:14px;
+	}
+	.share-new a { display:inline-block; width: 19px; height: 19px; margin: 2px 0px 2px 0; }
+
+	.share-new .icon-twitter {
+		background: url(images/twitter-variation.png) 0 center no-repeat;
+		padding:4px 0px 0px 5px;
+		font-size:17px;
+		margin-right: 3px;
+
+	}
+
+	.share-new .icon-rss {
+		background: url(images/rss-variation.png) 0 center no-repeat;
+		padding:4px 0px 0px 5px;
+		font-size:17px;
+		margin-right: 0px;
+
+	}
+
+	.share-new .icon-mail {
+		background: url(images/email-variation.png) 0 center no-repeat;
+		padding:4px 0px 0px 5px;
+		font-size:17px;
+		margin-right: 0px;
+
+	}
+
+	.logo {
+		position:absolute;
+		left:0px;
+		top:80px;
+	}
+
+	.bottomMenu {
+		width:1200px;
+		height: 70px;
+		position:absolute;
+		left:0px;
+		bottom:0px;
+		background: url(images/bgmenu.png) 0px 0px repeat-x;
+	}
+
+	#dropdown_nav {
+		font-weight:bold;
+		display:inline-block;
+		list-style:none;
+		border-bottom:0px solid #777;
+		margin-top:18px;
+	}
+
+	#dropdown_nav li {
+		float:left;
+		position:relative;
+		display:inline-block;
+
+	}
+
+	#dropdown_nav li a {
+
+		font-weight:100;
+		font-size:18px;
+		color:#fff;
+		padding:15px 22px 20px 22px;
+		background: url(images/linemenu.png) right no-repeat;
+		-moz-transition: background-color 0.3s 0.01s ease;
+		-o-transition: background-color 0.3s 0.01s ease;
+		-webkit-transition: background-color 0.3s 0.01s ease;
+	}
+	#dropdown_nav li a:hover {
+		background: #000;
+		text-decoration:none;
+		color:#0dbfe5;
+	}
+
+	#dropdown_nav li a.first {
+		-moz-border-radius:5px 0px 0px 5px;
+		-webkit-border-radius:5px 0px 0px 5px;
+	}
+
+	/* Выпадающее меню */
+	#dropdown_nav .sub_nav {
+		z-index: 4;
+		width:180px;
+		padding:0px;
+		position:absolute;
+		top:42px;
+		left:0px;
+		border:0px solid #ddd;
+		border-top:none;
+		background: #000;
+	}
+
+	#dropdown_nav .sub_nav li {
+
+		width:180px;
+		padding:0px;
+	}
+
+	#dropdown_nav .sub_nav li a {
+		background: none;
+		font-weight: normal;
+		font-size:15px;
+		display:block;
+		border-bottom:0px solid #e5e0b3;
+		padding-left:10px;
+		color:#fff;
+
+	}
+	#dropdown_nav .sub_nav li a:hover {
+		background:#222;
+		color:#0dbfe5;
+	}
+
+	#lpblock {
+		background: #eee;
+		position:relative;
+		width: 1200px;
+		height:100px;
+		margin:0 auto;
+		margin-top:193px;
+	}
+
+	#lpblock h2 {
+		text-align: center;
+		font-family: "Segoe UI Semilight";
+		color:#b2b2b2;
+		font-weight:100;
+		padding-top:35px;
+		font-size:3em;
+	}
+
+
+
+	.card {
+		padding-top: 20px;
+		margin: 10px 0 20px 0;
+		background-color: rgba(214, 224, 226, 0.2);
+		border-top-width: 0;
+		border-bottom-width: 2px;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	.card .card-heading {
+		padding: 0 20px;
+		margin: 0;
+	}
+
+	.card .card-heading.simple {
+		font-size: 20px;
+		font-weight: 300;
+		color: #777;
+		border-bottom: 1px solid #e5e5e5;
+	}
+
+	.card .card-heading.image img {
+		display: inline-block;
+		width: 46px;
+		height: 46px;
+		margin-right: 15px;
+		vertical-align: top;
+		border: 0;
+		-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+		border-radius: 50%;
+	}
+
+	.card .card-heading.image .card-heading-header {
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	.card .card-heading.image .card-heading-header h3 {
+		margin: 0;
+		font-size: 14px;
+		line-height: 16px;
+		color: #262626;
+	}
+
+	.card .card-heading.image .card-heading-header span {
+		font-size: 12px;
+		color: #999999;
+	}
+
+	.card .card-body {
+		padding: 0 20px;
+		margin-top: 20px;
+	}
+
+	.card .card-media {
+		padding: 0 20px;
+		margin: 0 -14px;
+	}
+
+	.card .card-media img {
+		max-width: 100%;
+		max-height: 100%;
+	}
+
+	.card .card-actions {
+		min-height: 30px;
+		padding: 0 20px 20px 20px;
+		margin: 20px 0 0 0;
+	}
+
+	.card .card-comments {
+		padding: 20px;
+		margin: 0;
+		background-color: #f8f8f8;
+	}
+
+	.card .card-comments .comments-collapse-toggle {
+		padding: 0;
+		margin: 0 20px 12px 20px;
+	}
+
+	.card .card-comments .comments-collapse-toggle a,
+	.card .card-comments .comments-collapse-toggle span {
+		padding-right: 5px;
+		overflow: hidden;
+		font-size: 12px;
+		color: #999;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.card-comments .media-heading {
+		font-size: 13px;
+		font-weight: bold;
+	}
+
+	.card.people {
+		position: relative;
+		display: inline-block;
+		width: 170px;
+		height: 300px;
+		padding-top: 0;
+		margin-left: 20px;
+		overflow: hidden;
+		vertical-align: top;
+	}
+
+	.card.people:first-child {
+		margin-left: 0;
+	}
+
+	.card.people .card-top {
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: inline-block;
+		width: 170px;
+		height: 150px;
+		background-color: #ffffff;
+	}
+
+	.card.people .card-top.green {
+		background-color: #53a93f;
+	}
+
+	.card.people .card-top.blue {
+		background-color: #427fed;
+	}
+
+	.card.people .card-info {
+		position: absolute;
+		top: 150px;
+		display: inline-block;
+		width: 100%;
+		height: 101px;
+		overflow: hidden;
+		background: #ffffff;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	.card.people .card-info .title {
+		display: block;
+		margin: 8px 14px 0 14px;
+		overflow: hidden;
+		font-size: 16px;
+		font-weight: bold;
+		line-height: 18px;
+		color: #404040;
+	}
+
+	.card.people .card-info .desc {
+		display: block;
+		margin: 8px 14px 0 14px;
+		overflow: hidden;
+		font-size: 12px;
+		line-height: 16px;
+		color: #737373;
+		text-overflow: ellipsis;
+	}
+
+	.card.people .card-bottom {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		display: inline-block;
+		width: 100%;
+		padding: 10px 20px;
+		line-height: 29px;
+		text-align: center;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	.card.hovercard {
+		position: relative;
+		padding-top: 0;
+		overflow: hidden;
+		text-align: center;
+		background-color: rgba(214, 224, 226, 0.2);
+	}
+
+	.card.hovercard .cardheader {
+		background: url("http://lorempixel.com/850/280/nature/4/");
+		background-size: cover;
+		height: 135px;
+	}
+
+	.card.hovercard .avatar {
+		position: relative;
+		top: -50px;
+		margin-bottom: -50px;
+	}
+
+	.card.hovercard .avatar img {
+		width: 100px;
+		height: 100px;
+		max-width: 100px;
+		max-height: 100px;
+		-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+		border-radius: 50%;
+		border: 5px solid rgba(255,255,255,0.5);
+	}
+
+	.card.hovercard .info {
+		padding: 4px 8px 10px;
+	}
+
+	.card.hovercard .info .title {
+		margin-bottom: 4px;
+		font-size: 24px;
+		line-height: 1;
+		color: #262626;
+		vertical-align: middle;
+	}
+
+	.card.hovercard .info .desc {
+		overflow: hidden;
+		font-size: 12px;
+		line-height: 20px;
+		color: #737373;
+		text-overflow: ellipsis;
+	}
+
+	.card.hovercard .bottom {
+		padding: 0 20px;
+		margin-bottom: 17px;
+	}
+
+	.btn{ 
+		border-radius: 50%;
+		width:32px;
+		height:32px;
+		line-height:18px;  
+	}
+
+
+	a.button {
+		text-align: center;
+		display:block;
+		height: 50px;
+		width:160px;
+		margin: 20px auto;
+		line-height: 50px;
+		padding-left: 48px;
+		position: relative;
+		background: #828383;
+		color:rgb(255,255,255);
+		text-decoration: none;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		border-radius: 5px;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		text-shadow:0px 1px 0px rgba(0,0,0,0.5);
+		-ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ff123852,Positive=true)";zoom:1;
+		filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ff123852,Positive=true);
+		-moz-box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+		-webkit-box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+		box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+		-ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true)";
+		filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true);
+	}
+
+	a.button span {
+		position: absolute;
+		left: 0;
+		width: 50px;
+		background-color:rgba(0,0,0,0.5);
+		-webkit-border-top-left-radius: 5px;
+		-webkit-border-bottom-left-radius: 5px;
+		-moz-border-radius-topleft: 5px;
+		-moz-border-radius-bottomleft: 5px;
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+		border-right: 1px solid  rgba(0,0,0,0.15);
+	}
+
+	a.button:hover span, .button.active span {
+		background:#0dbfe5;
+		border-right: 1px solid  rgba(0,0,0,0.3);
+		color: #fff;
+	}
+
+	a.button:hover {
+		background:#2e7584;
+	}
+</style>
+
+</head>
+<body>
+
+<header class="header">
+	<div id="headerInner">
+		<nav class="topMenuRight">
+
+			<ul>
+
+			</ul>
+
+		</nav>
+
+		<div class="share-new">
+
+			<a class="icon-twitter" href="#" title="Следить в Twitter!" target="_blank"></a>
+			<a class="icon-rss" href="#" title="Подписаться на rss" target="_blank"></a>
+			<a class="icon-mail" href="#" title="Подписаться по e-mail" target="_blank"></a>
+
+		</div>
+
+		<div class="logo">
+			<a href="#"><img src="images/logo.png" alt="Блог" /></a>
+		</div>
+
+		<nav class="bottomMenu">
+			<ul id="dropdown_nav">
+
+				<li><a href="#">Мой профиль</a>
+			
+
+			</ul>
+		</nav>
+
+
+	</div>
+</header>
+
+	<div id="lpblock">
+		<h2>Мой профиль</h2>
+	</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-3 col-sm-6">
+
+            <div class="card hovercard">
+                <div class="cardheader"></div>
+                <div class="avatar">
+                    <img alt="" src="http://lorempixel.com/100/100/people/9/">
+                </div>
+                <div class="info">
+                    <div class="title">
+                        <a href="http://scripteden.com/">Ник</a>
+                    </div>
+                    <div class="desc">Статус</div>
+                    <div class="desc">Город</div>
+                    <div class="desc">еще какая-то информация</div>
+                </div>
+                <div class="bottom">
+                    <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a class="btn btn-danger btn-sm" rel="publisher"
+                       href="https://plus.google.com/+ahmshahnuralam">
+                        <i class="fa fa-google-plus"></i>
+                    </a>
+                    <a class="btn btn-primary btn-sm" rel="publisher"
+                       href="https://plus.google.com/shahnuralam">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                    <a class="btn btn-warning btn-sm" rel="publisher" href="https://plus.google.com/shahnuralam">
+                        <i class="fa fa-behance"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+
+<div class="container-btn">
+		<a href="#" class="button"> <span>✓</span> Добавить книгу</a>
+</div>
+
+</body>
+</html>
