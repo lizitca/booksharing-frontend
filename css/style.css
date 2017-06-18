@@ -36,6 +36,45 @@
     color: #212121;
 }
 
+.current
+{
+    position: relative;
+}
+
+.btn-edit-exchange 
+{
+    position: absolute;
+    bottom: 14px;
+}
+
+.weather-box-large .current .temp-wrapper
+{
+    margin-left: 0;
+}
+
+.weather-box-large .current .temp-out-wrapper
+{
+    text-align: center;
+
+    margin: 20px auto 0;
+    width: 220px;
+}
+
+.weather-box-large .current .temp-wrapper .temperature
+{
+    text-align: center;
+}
+
+.current .profile-img
+{
+    border-radius: 18%;
+    background-clip: padding-box;
+    width: 110px;
+    height: 110px;
+    float: left;
+    margin-right: 15px;
+    border: 5px solid #fff;
+}
 .register-page #login-full-wrapper 
 {
     position: absolute;
