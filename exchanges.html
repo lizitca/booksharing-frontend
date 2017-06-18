@@ -1,70 +1,273 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<title>Обмен</title>
-</head>
-<body>
-	<main class="exchanges">
-		<template class="exchange-template">
-			<div class="exchange-conteiner">
-				<span>Статус:</span>
-				<span class="state-value"></span>
-				<div class="origin">
-					<a href=""><img class="origin-user-img" src="" alt=""></a>
-					<a class="origin-user-name" href=""></a>
-					<a class="origin-book-title" href=""></a>
-				</div>
-				<div class="target">
-					<a href=""><img class="target-user-img" src="" alt=""></a>
-					<a class="target-user-name" href=""></a>
-					<a class="target-book-title" href=""></a>
-				</div>	
-			</div>
-			<button class="redact-button">Изменить</button>
-		</template>
-	</main>
-	<button class="show-more-button">Показать еще</button>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<div class="exchange-modal">
-		<select name="state">
-			<option value="предложение">предложение</option>
-			<option value="в процессе">в процессе</option>
-			<option value="завершен">завершен</option>
-			<option value="отмена">отмена</option>
-		</select>
-		<div class="origin">
-			<a href="#"><img src="" alt=""></a>
-			<a href="#"><span class="user-name"></span></a>
-			<a href="#"><span class="book-title"></span></a>
+	<title>Обмен книгами</title>
+	
+	<!-- bootstrap -->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/dist/css/bootstrap.min.css" />
+		
+	<!-- libraries -->
+	<link rel="stylesheet" type="text/css" href="vendor/font-awesome/css/font-awesome.min.css" />
+
+	<!-- global styles -->
+	<link rel="stylesheet" type="text/css" href="css/theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+	<!-- Favicon -->
+	<link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
+
+	<!-- google font libraries -->
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:300i,400,600,700&amp;subset=cyrillic,cyrillic-ext|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<script src="js/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body class="theme-red boxed-layout">
+	<!-- Modal -->
+	<div class="modal fade exchange-modal" id="exchangeModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Обмен</h4>
+				</div>
+				<div class="modal-body">
+					<div class="modal-message"></div>					                     	           	
+					<div class="temp-out-wrapper row">
+						<div class="form-group col-md-4">
+							<select name="state" class="form-control">
+								<option value="предложение">предложение</option>
+								<option value="в процессе">в процессе</option>
+								<option value="завершен">завершен</option>
+								<option value="отмена">отмена</option>
+							</select>
+						</div>
+						<div class="temp-wrapper col-md-4">
+							<div class="temperature">
+								<img class="state-icon" src="img/done-ico.svg" alt="">
+							</div>
+						</div>
+					</div>								
+
+					<div class="row">
+						<div class="col-md-5">
+							<img src="img/samples/angelina-300.jpg" alt="" class="profile-img img-responsive origin-user-img">
+						</div>
+						<div class="col-md-2"></div>
+						<div class="col-md-5">
+							<img src="img/samples/angelina-300.jpg" alt="" class="profile-img img-responsive target-user-img">
+						</div>
+					</div>
+					<div class="row">
+						<div class="place col-md-5">
+							<i class="fa fa-book"></i>
+							<span class="origin-book-title">Ребейз и конфликт</span>
+						</div>
+						<div class="col-md-2">на</div>
+						<div class="place col-md-5">
+							<i class="fa fa-book"></i>
+							<span class="target-book-title">Преступление и наказание</span>
+						</div>
+					</div>									
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success save-btn">Сохранить</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+				</div>
+			</div>
 		</div>
-		<div class="target">
-			<a href="#"><img src="" alt=""></a>
-			<a href="#"><span class="user-name"></span></a>
-			<a href="#"><span class="book-title"></span></a>
-		</div>		
-		<div>
-			<button class="save-button">Сохранить</button>
-			<button>Закрыть</button>
+	</div>	
+
+
+	<div id="theme-wrapper">
+		<header class="navbar" id="header-navbar">
+			<div class="container">
+				<a href="index.html" id="logo" class="navbar-brand">
+					<img src="img/logo.png" alt="" class="normal-logo logo-white"/>
+					<img src="img/logo-black.png" alt="" class="normal-logo logo-black"/>
+					<img src="img/logo-small.png" alt="" class="small-logo hidden-xs hidden-sm hidden"/>
+				</a>
+				
+				<div class="clearfix">
+				<button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="fa fa-bars"></span>
+				</button>
+				
+				<div class="nav-no-collapse pull-right" id="header-nav">
+					<ul class="nav navbar-nav pull-right">
+						<li class="mobile-search">
+							<a class="btn">
+								<i class="fa fa-search"></i>
+							</a>
+							
+							<div class="drowdown-search">
+								<form role="search">
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Search...">
+										<i class="fa fa-search nav-search-icon"></i>
+									</div>
+								</form>
+							</div>
+							
+						</li>
+						<li class="dropdown profile-dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<img src="img/samples/scarlet-159.png" alt=""/>
+								<span class="hidden-xs">Scarlett Johansson</span> <b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li><a href="user-profile.html"><i class="fa fa-user"></i>Профиль</a></li>
+								<li><a href="#"><i class="fa fa-cog"></i>Настройки</a></li>
+								<li><a href="#"><i class="fa fa-envelope-o"></i>Обмены</a></li>
+								<li><a href="#"><i class="fa fa-power-off"></i>Выход</a></li>
+							</ul>
+						</li>
+						<li class="hidden-xxs">
+							<a class="btn">
+								<i class="fa fa-power-off"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+				</div>
+			</div>
+		</header>
+		<div id="page-wrapper" class="container">
+			<div class="row">
+				<div id="nav-col">
+					<section id="col-left" class="col-left-nano">
+						<div id="col-left-inner" class="col-left-nano-content">
+							<div id="user-left-box" class="clearfix hidden-sm hidden-xs dropdown profile2-dropdown">
+								<img alt="" src="img/samples/scarlet-159.png" />
+								<div class="user-box">
+									<span class="name">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+											Scarlett J. 
+											<i class="fa fa-angle-down"></i>
+										</a>
+										<ul class="dropdown-menu">
+											<li><a href="user-profile.html"><i class="fa fa-user"></i>Профиль</a></li>
+											<li><a href="#"><i class="fa fa-cog"></i>Настройки</a></li>
+											<li><a href="#"><i class="fa fa-envelope-o"></i>Обмены</a></li>
+											<li><a href="#"><i class="fa fa-power-off"></i>Выход</a></li>
+										</ul>
+									</span>
+									<span class="status">
+										<i class="fa fa-circle"></i> Online
+									</span>
+								</div>
+							</div>
+							<div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">	
+								<ul class="nav nav-pills nav-stacked">
+									<li class="nav-header nav-header-first hidden-sm hidden-xs">
+										Navigation
+									</li>
+									<li>
+										<a href="index.html">
+											<i class="fa fa-dashboard"></i>
+											<span>Dashboard</span>
+											<span class="label label-primary label-circle pull-right">28</span>
+										</a>
+								</ul>
+							</div>
+						</div>
+					</section>
+					<div id="nav-col-submenu"></div>
+				</div>
+				<div id="content-wrapper">
+					<div class="row">
+						<div class="col-lg-12">
+							
+							<div class="row">
+								<div class="col-lg-12">
+									<ol class="breadcrumb">
+										<li><a href="#">Главная</a></li>
+										<li><a href="#">Пользователи</a></li>
+										<li class="active"><span>Профиль пользователя</span></li>
+									</ol>
+									
+									<h1>Профиль пользователя</h1>
+								</div>
+							</div>
+							
+							<div class="row" id="user-profile">
+
+								<template class="exchange-template">
+									<div class="col-lg-12 exchange-conteiner">
+	                                    <div class="main-box weather-box-large">
+											<div class="main-box-body main-box-no-header clearfix">
+												<div class="current">
+													<h4>Обмен книгами</h4>
+													<div class="row">
+														<div class="col-md-5">
+															<img src="img/samples/angelina-300.jpg" alt="" class="profile-img img-responsive origin-user-img">
+														</div>
+														<div class="col-md-2"></div>
+														<div class="col-md-5">
+															<img src="img/samples/angelina-300.jpg" alt="" class="profile-img img-responsive target-user-img">
+														</div>
+													</div>
+													<div class="row">
+														<div class="place col-md-5">
+															<i class="fa fa-book"></i>
+															<span class="origin-book-title"></span>
+														</div>
+														<div class="col-md-2">на</div>
+														<div class="place col-md-5">
+															<i class="fa fa-book"></i>
+															<span class="target-book-title"></span>
+														</div>
+													</div>
+													<div class="temp-out-wrapper clearfix">
+														<div class="temp-wrapper">
+															<div class="temperature">
+																<img class="state-icon" src="" alt="">
+															</div>
+															<div class="desc state-value"></div>	
+														</div>
+													</div>
+													<button class="btn btn-large btn-success btn-edit-exchange" data-toggle="modal" data-target="#exchangeModal">Изменить</button>
+												</div>
+											</div>
+										</div>
+									</template>
+
+								</div>
+								<button class="btn btn-success show-more-btn">Показать еще</button>
+							</div>							
+						</div>
+					</div>
+									
+					<footer id="footer-bar" class="row">
+						<p id="footer-copyright" class="col-xs-12">
+							Powered by Софтвариум.
+						</p>
+					</footer>
+				</div>
+			</div>
 		</div>
 	</div>
-
+	
 	<script src="vendor/jquery/dist/jquery.min.js"></script>
-	<script>
+	<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- this page specific inline scripts -->
+	<script type="text/javascript">
+
 	var totalPages,
 		currPage = 1;
 
-	
-	getExchanges();
+	var showMoreButton = $('.show-more-btn');	
+	showMoreButton.click(getExchanges);
 
-	var getMoreButton = $('.show-more-button');
-	getMoreButton.click(getExchanges);
-	
 	function getExchanges() {
-		if(currPage > totalPages) {
-			getMoreButton.hide();
-			return;
-		}
 		$.ajax({
 			url: '/booksharing-backend/api/exchanges.get.php',
 			method: 'GET',
@@ -81,90 +284,101 @@
 				renderExchange(item);
 			});
 
+			if(currPage >= totalPages) {
+				showMoreButton.hide();
+			}
 			currPage++;
-
-		}).fail(function(){
-			console.log('не удалось загрузить обмен');
 		});
 	}
+	
+	getExchanges();
+	
+	function getStateIcon(stateValue) {		
+		switch(stateValue) {
+			case 'предложение':
+				return 'img/suggest-icon.svg';
+			case 'в процессе':
+				return 'img/process-icon.svg';
+			case 'завершен':
+				return 'img/done-icon.svg';
+			case 'отмена':
+				return 'img/cancel-icon.svg';
+		}		
+	}
 
+	var exchangeTemplate = document.querySelector('.exchange-template');
 
-	var exchTemplate = document.querySelector('.exchange-template');
-	function renderExchange(exch) {
+	function renderExchange(exchange) {
+		var newExchange = exchangeTemplate.content.cloneNode(true);
 
-		var newExch = exchTemplate.content.cloneNode(true);
+		newExchange.querySelector('.state-value').innerText = exchange.state;
+		newExchange.querySelector('.state-icon').src = getStateIcon(exchange.state);
 
-		newExch.querySelector('.state-value').innerText = exch.state;
+		//newExchange.querySelector('.origin-user-name').innerText = exchange.origin_user.name;
+		newExchange.querySelector('.origin-user-img').src = exchange.origin_user.image;
+		newExchange.querySelector('.origin-book-title').innerText = exchange.origin_book.title;
 
-		newExch.querySelector('.origin-user-name').innerText = exch.origin_user.name;
-		newExch.querySelector('.origin-user-img').src = exch.origin_user.image;
-		newExch.querySelector('.origin-book-title').innerText = exch.origin_book.title;
+		//newExchange.querySelector('.target-user-name').innerText = exchange.target_user.name;
+		newExchange.querySelector('.target-user-img').src = exchange.target_user.image;
+		newExchange.querySelector('.target-book-title').innerText = exchange.target_book.title;
 
-		newExch.querySelector('.target-user-name').innerText = exch.target_user.name;
-		newExch.querySelector('.target-user-img').src = exch.target_user.image;
-		newExch.querySelector('.target-book-title').innerText = exch.target_book.title;
-
-		newExch.querySelector('.redact-button').onclick = function() {
-			renderRedactExch(exch.id);
+		newExchange.querySelector('.btn-edit-exchange').onclick = function() {
+			renderRedactExchange(exchange);
 		}
 
-		exchTemplate.parentNode.appendChild(newExch);
-	}
+		exchangeTemplate.parentNode.appendChild(newExchange);
+	}	
 
-	function renderRedactExch(id) {
-		$.ajax({
-			url: '/booksharing-backend/api/exchange.get.php',
-			method: 'GET',
-			data: {id:id},
-			dataType: 'json',
-			cache: false
-		}).done(function(response){
-			loadExchange(response);
+	var msgBox = $('.modal-message');
+	var exchangeModal = $('.exchange-modal');
 
-		}).fail(function(response){
-			console.log('ccccc');
-		});
-	}
+	function renderRedactExchange(exchange) {
+		msgBox.empty().hide();
 
-	function loadExchange(exchange) {
 		$('[name="state"] option').each(function(i,item){
 			var currItem = $(item);
 			if(currItem.val() === exchange.state) 
 				currItem.prop({selected:true});			
 		});
+		
+		exchangeModal.find('.state-icon').prop({src:getStateIcon(exchange.state)});
 
-		$('.origin img').prop({src:exchange.origin_user.image});
-		$('.origin .user-name').text(exchange.origin_user.name);
-		$('.origin .book-title').text(exchange.origin_book.title);
+		exchangeModal.find('.origin-user-img').prop({src:exchange.origin_user.image});
+		exchangeModal.find('.origin-user-name').text(exchange.origin_user.name);
+		exchangeModal.find('.origin-book-title').text(exchange.origin_book.title);
 
-		$('.target img').prop({src:exchange.target_user.image});
-		$('.target .user-name').text(exchange.target_user.name);
-		$('.target .book-title').text(exchange.target_book.title);
+		exchangeModal.find('.target-user-img').prop({src:exchange.target_user.image});
+		exchangeModal.find('.target-user-name').text(exchange.target_user.name);
+		exchangeModal.find('.target-book-title').text(exchange.target_book.title);
 
-		$('.save-button').data('id',exchange.id);
-	}
+		exchangeModal.find('.save-btn').click(function() {
+			save(exchange.id);
+		});
+	}		
 
-	
-	var msgBox = $('<div>',{class:'message'});
-	$('.exchange-modal').prepend(msgBox);
-	$('.save-button').click(save);
-
-	function save(id) {
+	function save(id) {	
+		var state = $('[name="state"]').val();
 		$.ajax({
 			url: '/booksharing-backend/api/exchange.update.php',
 			method: 'GET',
 			data: {
 				id: id,
-				state: $('[name="state"]').val()
+				state: state
 			},
 			cache: false,
 			dataType: 'json'
 		}).done(function(response){
-			msgBox.text(response.message);
+			msgBox.addClass('alert alert-success');
+			msgBox.text(response.message);	
 		}).fail(function(){
+			msgBox.addClass('alert alert-danger');
 			msgBox.text('Не удалось изменить статус');
+		}).always(function() {
+			msgBox.show();
 		});
 	}
+	
 	</script>
+	
 </body>
 </html>

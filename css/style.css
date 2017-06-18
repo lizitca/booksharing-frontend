@@ -75,6 +75,7 @@
     margin-right: 15px;
     border: 5px solid #fff;
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 .register-page #login-full-wrapper 
 {
@@ -85,4 +86,11 @@
     background-size: cover; 
 =======
 >>>>>>> верстка страницы обмена
+=======
+}
+
+.state-icon
+{
+    width: 45px;
+>>>>>>> страница обменов
 }
