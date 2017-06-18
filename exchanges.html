@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Обмен</title>
+</head>
+<body>
+	<main class="exchanges">
+		<template class="exchange-template">
+			<div class="exchange-conteiner">
+				<span>Статус:</span>
+				<span class="state-value"></span>
+				<div class="origin">
+					<a href=""><img class="origin-user-img" src="" alt=""></a>
+					<a class="origin-user-name" href=""></a>
+					<a class="origin-book-title" href=""></a>
+				</div>
+				<div class="target">
+					<a href=""><img class="target-user-img" src="" alt=""></a>
+					<a class="target-user-name" href=""></a>
+					<a class="target-book-title" href=""></a>
+				</div>	
+			</div>
+			<button class="redact-button">Изменить</button>
+		</template>
+	</main>
+	<button class="show-more-button">Показать еще</button>
+
+	<div class="exchange-modal">
+		<select name="state">
+			<option value="предложение">предложение</option>
+			<option value="в процессе">в процессе</option>
+			<option value="завершен">завершен</option>
+			<option value="отмена">отмена</option>
+		</select>
+		<div class="origin">
+			<a href="#"><img src="" alt=""></a>
+			<a href="#"><span class="user-name"></span></a>
+			<a href="#"><span class="book-title"></span></a>
+		</div>
+		<div class="target">
+			<a href="#"><img src="" alt=""></a>
+			<a href="#"><span class="user-name"></span></a>
+			<a href="#"><span class="book-title"></span></a>
+		</div>		
+		<div>
+			<button class="save-button">Сохранить</button>
+			<button>Закрыть</button>
+		</div>
+	</div>
+
+	<script src="vendor/jquery/dist/jquery.min.js"></script>
+	<script>
+	var totalPages,
+		currPage = 1;
+
+	
+	getExchanges();
+
+	var getMoreButton = $('.show-more-button');
+	getMoreButton.click(getExchanges);
+	
+	function getExchanges() {
+		if(currPage > totalPages) {
+			getMoreButton.hide();
+			return;
+		}
+		$.ajax({
+			url: '/booksharing-backend/api/exchanges.get.php',
+			method: 'GET',
+			data: {
+				user_id: 1,
+				page: currPage
+			},
+			dataType: 'json',
+			cache: false
+		}).done(function(response){
+			totalPages = response.total_pages;
+
+			response.exchanges.forEach(function(item) {
+				renderExchange(item);
+			});
+
+			currPage++;
+
+		}).fail(function(){
+			console.log('не удалось загрузить обмен');
+		});
+	}
+
+
+	var exchTemplate = document.querySelector('.exchange-template');
+	function renderExchange(exch) {
+
+		var newExch = exchTemplate.content.cloneNode(true);
+
+		newExch.querySelector('.state-value').innerText = exch.state;
+
+		newExch.querySelector('.origin-user-name').innerText = exch.origin_user.name;
+		newExch.querySelector('.origin-user-img').src = exch.origin_user.image;
+		newExch.querySelector('.origin-book-title').innerText = exch.origin_book.title;
+
+		newExch.querySelector('.target-user-name').innerText = exch.target_user.name;
+		newExch.querySelector('.target-user-img').src = exch.target_user.image;
+		newExch.querySelector('.target-book-title').innerText = exch.target_book.title;
+
+		newExch.querySelector('.redact-button').onclick = function() {
+			renderRedactExch(exch.id);
+		}
+
+		exchTemplate.parentNode.appendChild(newExch);
+	}
+
+	function renderRedactExch(id) {
+		$.ajax({
+			url: '/booksharing-backend/api/exchange.get.php',
+			method: 'GET',
+			data: {id:id},
+			dataType: 'json',
+			cache: false
+		}).done(function(response){
+			loadExchange(response);
+
+		}).fail(function(response){
+			console.log('ccccc');
+		});
+	}
+
+	function loadExchange(exchange) {
+		$('[name="state"] option').each(function(i,item){
+			var currItem = $(item);
+			if(currItem.val() === exchange.state) 
+				currItem.prop({selected:true});			
+		});
+
+		$('.origin img').prop({src:exchange.origin_user.image});
+		$('.origin .user-name').text(exchange.origin_user.name);
+		$('.origin .book-title').text(exchange.origin_book.title);
+
+		$('.target img').prop({src:exchange.target_user.image});
+		$('.target .user-name').text(exchange.target_user.name);
+		$('.target .book-title').text(exchange.target_book.title);
+
+		$('.save-button').data('id',exchange.id);
+	}
+
+	
+	var msgBox = $('<div>',{class:'message'});
+	$('.exchange-modal').prepend(msgBox);
+	$('.save-button').click(save);
+
+	function save(id) {
+		$.ajax({
+			url: '/booksharing-backend/api/exchange.update.php',
+			method: 'GET',
+			data: {
+				id: id,
+				state: $('[name="state"]').val()
+			},
+			cache: false,
+			dataType: 'json'
+		}).done(function(response){
+			msgBox.text(response.message);
+		}).fail(function(){
+			msgBox.text('Не удалось изменить статус');
+		});
+	}
+	</script>
+</body>
+</html>
