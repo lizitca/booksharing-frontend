@@ -6,10 +6,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<title>Обмен книгами</title>
-	
+
 	<!-- bootstrap -->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/dist/css/bootstrap.min.css" />
-		
+
 	<!-- libraries -->
 	<link rel="stylesheet" type="text/css" href="vendor/font-awesome/css/font-awesome.min.css" />
 
@@ -39,7 +39,7 @@
 					<h4 class="modal-title">Обмен</h4>
 				</div>
 				<div class="modal-body">
-					<div class="modal-message"></div>					                     	           	
+					<div class="modal-message"></div>
 					<div class="temp-out-wrapper row">
 						<div class="form-group col-md-4">
 							<select name="state" class="form-control">
@@ -54,7 +54,7 @@
 								<img class="state-icon" src="img/done-ico.svg" alt="">
 							</div>
 						</div>
-					</div>								
+					</div>
 
 					<div class="row">
 						<div class="col-md-5">
@@ -75,7 +75,7 @@
 							<i class="fa fa-book"></i>
 							<span class="target-book-title">Преступление и наказание</span>
 						</div>
-					</div>									
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success save-btn">Сохранить</button>
@@ -83,7 +83,7 @@
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div>
 
 
 	<div id="theme-wrapper">
@@ -94,20 +94,20 @@
 					<img src="img/logo-black.png" alt="" class="normal-logo logo-black"/>
 					<img src="img/logo-small.png" alt="" class="small-logo hidden-xs hidden-sm hidden"/>
 				</a>
-				
+
 				<div class="clearfix">
 				<button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="fa fa-bars"></span>
 				</button>
-				
+
 				<div class="nav-no-collapse pull-right" id="header-nav">
 					<ul class="nav navbar-nav pull-right">
 						<li class="mobile-search">
 							<a class="btn">
 								<i class="fa fa-search"></i>
 							</a>
-							
+
 							<div class="drowdown-search">
 								<form role="search">
 									<div class="form-group">
@@ -116,7 +116,7 @@
 									</div>
 								</form>
 							</div>
-							
+
 						</li>
 						<li class="dropdown profile-dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -150,7 +150,7 @@
 								<div class="user-box">
 									<span class="name">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-											Scarlett J. 
+											Scarlett J.
 											<i class="fa fa-angle-down"></i>
 										</a>
 										<ul class="dropdown-menu">
@@ -165,7 +165,7 @@
 									</span>
 								</div>
 							</div>
-							<div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">	
+							<div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
 								<ul class="nav nav-pills nav-stacked">
 									<li class="nav-header nav-header-first hidden-sm hidden-xs">
 										Navigation
@@ -185,7 +185,7 @@
 				<div id="content-wrapper">
 					<div class="row">
 						<div class="col-lg-12">
-							
+
 							<div class="row">
 								<div class="col-lg-12">
 									<ol class="breadcrumb">
@@ -193,11 +193,11 @@
 										<li><a href="#">Пользователи</a></li>
 										<li class="active"><span>Профиль пользователя</span></li>
 									</ol>
-									
+
 									<h1>Профиль пользователя</h1>
 								</div>
 							</div>
-							
+
 							<div class="row" id="user-profile">
 
 								<template class="exchange-template">
@@ -231,7 +231,7 @@
 															<div class="temperature">
 																<img class="state-icon" src="" alt="">
 															</div>
-															<div class="desc state-value"></div>	
+															<div class="desc state-value"></div>
 														</div>
 													</div>
 													<button class="btn btn-large btn-success btn-edit-exchange" data-toggle="modal" data-target="#exchangeModal">Изменить</button>
@@ -242,10 +242,10 @@
 
 								</div>
 								<button class="btn btn-success show-more-btn">Показать еще</button>
-							</div>							
+							</div>
 						</div>
 					</div>
-									
+
 					<footer id="footer-bar" class="row">
 						<p id="footer-copyright" class="col-xs-12">
 							Powered by Софтвариум.
@@ -255,7 +255,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<script src="vendor/jquery/dist/jquery.min.js"></script>
 	<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 	<!-- this page specific inline scripts -->
@@ -264,7 +264,7 @@
 	var totalPages,
 		currPage = 1;
 
-	var showMoreButton = $('.show-more-btn');	
+	var showMoreButton = $('.show-more-btn');
 	showMoreButton.click(getExchanges);
 
 	function getExchanges() {
@@ -290,10 +290,10 @@
 			currPage++;
 		});
 	}
-	
+
 	getExchanges();
-	
-	function getStateIcon(stateValue) {		
+
+	function getStateIcon(stateValue) {
 		switch(stateValue) {
 			case 'предложение':
 				return 'img/suggest-icon.svg';
@@ -303,7 +303,7 @@
 				return 'img/done-icon.svg';
 			case 'отмена':
 				return 'img/cancel-icon.svg';
-		}		
+		}
 	}
 
 	var exchangeTemplate = document.querySelector('.exchange-template');
@@ -327,7 +327,7 @@
 		}
 
 		exchangeTemplate.parentNode.appendChild(newExchange);
-	}	
+	}
 
 	var msgBox = $('.modal-message');
 	var exchangeModal = $('.exchange-modal');
@@ -337,10 +337,10 @@
 
 		$('[name="state"] option').each(function(i,item){
 			var currItem = $(item);
-			if(currItem.val() === exchange.state) 
-				currItem.prop({selected:true});			
+			if(currItem.val() === exchange.state)
+				currItem.prop({selected:true});
 		});
-		
+
 		exchangeModal.find('.state-icon').prop({src:getStateIcon(exchange.state)});
 
 		exchangeModal.find('.origin-user-img').prop({src:exchange.origin_user.image});
@@ -354,9 +354,9 @@
 		exchangeModal.find('.save-btn').click(function() {
 			save(exchange.id);
 		});
-	}		
+	}
 
-	function save(id) {	
+	function save(id) {
 		var state = $('[name="state"]').val();
 		$.ajax({
 			url: '/booksharing-backend/api/exchange.update.php',
@@ -369,7 +369,7 @@
 			dataType: 'json'
 		}).done(function(response){
 			msgBox.addClass('alert alert-success');
-			msgBox.text(response.message);	
+			msgBox.text(response.message);
 		}).fail(function(){
 			msgBox.addClass('alert alert-danger');
 			msgBox.text('Не удалось изменить статус');
@@ -377,8 +377,8 @@
 			msgBox.show();
 		});
 	}
-	
+
 	</script>
-	
+
 </body>
 </html>
