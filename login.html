@@ -46,11 +46,11 @@
 										<form role="form" action="index.html">
 											<div class="input-group">
 												<span class="input-group-addon"><i class="fa fa-user"></i></span>
-												<input class="form-control" type="text" placeholder="Логин">
+												<input class="form-control auth-username" type="text" placeholder="Логин">
 											</div>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="fa fa-key"></i></span>
-												<input type="password" class="form-control" placeholder="Пароль">
+												<input type="password" class="form-control auth-password" placeholder="Пароль">
 											</div>
 											<div id="remember-me-wrapper">
 												<div class="row">
@@ -66,7 +66,7 @@
 											</div>
 											<div class="row">
 												<div class="col-xs-12">
-													<button type="submit" class="btn btn-success col-xs-12">Войти</button>
+													<button type="submit" class="btn btn-success col-xs-12 btn-login">Войти</button>
 												</div>
 											</div>
 											<div class="row">
@@ -107,6 +107,30 @@
 			</div>
 		</div>
 	</div>
+	<script src="vendor/jquery/dist/jquery.min.js"></script>
+	<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- this page specific inline scripts -->
+	<script type="text/javascript">	
+		var BACKEND = 'http://dusty.dusty';
+		$(function() {
+			$('.btn-login').click(function() {
+				$.ajax({
+					url: BACKEND + '/api/user.login.php',
+					method: 'GET',
+					data: {
+						username: $('.auth-username').val(),
+						password: $('.auth-password').val()
+					},
+					cache: false,
+					dataType: 'json'
+				}).done(function() {
+					document.location.href = 'profile.php';
+				}).fail(function() {
+					toastr.error('Username or password are not correct', 'Auth failed!')
+				});
+			}
+		});
 
+	</script>	
 </body>
 </html>
