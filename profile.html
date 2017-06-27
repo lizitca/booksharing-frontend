@@ -145,7 +145,7 @@
 								<div class="col-lg-3 col-md-4 col-sm-4">
 									<div class="main-box clearfix">
 										<header class="main-box-header clearfix">
-											<h2>Scarlett Johansson</h2>
+											<h2 class="user-name">Scarlett Johansson</h2>
 										</header>
 										
 										<div class="main-box-body clearfix">
@@ -167,104 +167,17 @@
 											
 											<div class="profile-details">
 												<ul class="fa-ul">
-													<li><i class="fa-li fa fa-book"></i>Всего книг: <span>456</span></li>
+													<li><i class="fa-li fa fa-book"></i>Всего книг: <span class="books-value">456</span></li>
 													<li><i class="fa-li fa fa-exchange"></i>Всего обменов: <span>828</span></li>
 												</ul>
 											</div>
 										</div>
-										
 									</div>
 								</div>
 								
 								<div class="col-lg-9 col-md-8 col-sm-8">
 									<div class="main-box clearfix">
                                         <ul class="widget-books row">
-                                            <li class="col-md-6">
-                                                <div class="img">
-                                                    <img src="img/samples/scarlet.png" alt=""/>
-                                                </div>
-                                                <div class="details">
-                                                    <div class="name">
-                                                        <a href="#">Былое и думы</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="col-md-6">
-                                                <div class="img">
-                                                    <img src="img/samples/kunis.png" alt=""/>
-                                                </div>
-                                                <div class="details">
-                                                    <div class="name">
-                                                        <a href="#">Колобок</a>
-                                                    </div>
-                                                    <div class="type">
-                                                        <span class="label label-warning">Обмен</span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="col-md-6">
-                                                <div class="img">
-                                                    <img src="img/samples/ryan.png" alt=""/>
-                                                </div>
-                                                <div class="details">
-                                                    <div class="name">
-                                                        <a href="#">Сказка о царе салтане</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="col-md-6">
-                                                <div class="img">
-                                                    <img src="img/samples/robert.png" alt=""/>
-                                                </div>
-                                                <div class="details">
-                                                    <div class="name">
-                                                        <a href="#">Русско-английский разговорник</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="col-md-6">
-                                                <div class="img">
-                                                    <img src="img/samples/emma.png" alt=""/>
-                                                </div>
-                                                <div class="details">
-                                                    <div class="name">
-                                                        <a href="#">JavaScript: как не впасть в неконтролируемую панику</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="col-md-6">
-                                                <div class="img">
-                                                    <img src="img/samples/george.png" alt=""/>
-                                                </div>
-                                                <div class="details">
-                                                    <div class="name">
-                                                        <a href="#">Фрустрации и метафизический кризис junior developer</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="col-md-6">
-                                                <div class="img">
-                                                    <img src="img/samples/kunis.png" alt=""/>
-                                                </div>
-                                                <div class="details">
-                                                    <div class="name">
-                                                        <a href="#">Изучаем верстку в FrontPage 1.0</a>
-                                                    </div>
-                                                    <div class="type">
-                                                        <span class="label label-warning">Обмен</span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="col-md-6">
-                                                <div class="img">
-                                                    <img src="img/samples/ryan.png" alt=""/>
-                                                </div>
-                                                <div class="details">
-                                                    <div class="name">
-                                                        <a href="#">Альманах о системах контроля версий</a>
-                                                    </div>
-                                                </div>
-                                            </li>
                                         </ul>
                                         <br/>
                                         <a href="#" class="btn btn-success pull-right">Еще книги</a>
@@ -288,8 +201,81 @@
 	<script src="vendor/jquery/dist/jquery.min.js"></script>
 	<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 	<!-- this page specific inline scripts -->
-	<script type="text/javascript">	
-	</script>
+	<script>
+        window.onload = getUser();
+        
+        function getUser() {
+            $.ajax({
+                url: '/back/user.get.php',
+                type: 'GET',
+                data: {id : 1},
+                dataType: 'json'
+            }).done (
+                function (responce) {
+                    
+                    var user = responce,
+                        userName = user.user.username,
+                        booksValue = user.books.length;
+
+                    for (var i = 0; i < booksValue; i++) {
+                        
+                        var img = $('<img src="img/samples/scarlet.png" alt=""/>');
+                        var a = $('<a href="#"/>');
+
+                        var li = $('<li/>');
+                        li.addClass('col-md-6');
+
+                        var divImg = $('<div/>');
+                        divImg.addClass('img');
+                        divImg.append(img);
+
+                        var divName = $('<div/>');
+                        divName.addClass('name');
+                        divName.append(a);
+
+                        var divDetails = $('<div/>');
+                        divDetails.addClass('details');
+                        divDetails.append(divName);
+
+
+                        li.append(divImg);
+                        li.append(divDetails);
+                            
+                        if (i < 8) {
+                            $('.widget-books').append(li);
+                        } else {
+                            $('.btn .btn-success .pull-right').css('display', 'block');
+                            li.css('display', 'none');
+                            li.addClass('hideBooks');
+                            $('.widget-books').append(li);
+                            
+                            $('.btn-success').on('click', viewBooks);
+                        }
+                    }
+                    
+                    for (var i = 0; i < booksValue; i++) {
+                        
+                        var book = user.books[i],
+                            bookName = book.title,
+                            block = $('.details .name a');
+                        
+                        $(block[i]).text(bookName);
+                    }
+                    
+                    $(".dropdown-toggle").text(userName);
+                    $(".user-name").text(userName);
+                    $(".books-value").text(booksValue);
+            }).fail (
+                function () {console.log("ошибка!");
+            });
+            
+            function viewBooks(but) {
+                but.preventDefault();
+                $('.hideBooks').css('display', 'block');
+                $('.btn-success').css('display', 'none');
+            }
+        }
+</script>
 	
 </body>
 </html>

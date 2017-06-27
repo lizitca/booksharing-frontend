@@ -89,4 +89,10 @@
 .state-icon
 {
     width: 45px;
+    background-size: cover; 
+}
+
+.hideBooks, .btn btn-success pull-right 
+{
+    display: none;
 }
