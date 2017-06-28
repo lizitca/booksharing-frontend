@@ -87,7 +87,8 @@
 	<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="vendor/toastr/toastr.min.js"></script>
 	<script src="js/settings.js"></script>
-	<script>
+	<!-- this page specific inline scripts -->
+	<script type="text/javascript">	
 		$(function() {
 			$('.btn-register').click(function(e) {
 				e.preventDefault();
@@ -108,7 +109,7 @@
 					dataType: 'json'
 				}).done(function() {
 					toastr.success('Successfully registered, please wait you\'ve been redirecting to login page');
-					setTimeout(function() {document.location.href = 'login.html'});
+					setTimeout(function() {document.location.href = 'login.html'}, 1000);
 				}).fail(function(response) {
 					toastr.error(response.responseText, 'Register failed!')
 				});
