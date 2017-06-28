@@ -200,19 +200,25 @@
 	
 	<script src="vendor/jquery/dist/jquery.min.js"></script>
 	<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="vendor/toastr/toastr.min.js"></script>
+	<script src="js/settings.js"></script>
+	<script src="js/app.js"></script>
 	<!-- this page specific inline scripts -->
 	<script>
-        window.onload = getUser();
+        window.onload = getUser;
+		var userId = parseGetParams().id;
         
         function getUser() {
             $.ajax({
-                url: '/back/user.get.php',
+                url: BACKEND + '/api/user.get.php',
                 type: 'GET',
-                data: {id : 1},
-                dataType: 'json'
+                dataType: 'json',
+				data: { id: userId },
+				xhrFields: {
+					withCredentials: true
+				}
             }).done (
                 function (responce) {
-                    
                     var user = responce,
                         userName = user.user.username,
                         booksValue = user.books.length;
@@ -254,7 +260,6 @@
                     }
                     
                     for (var i = 0; i < booksValue; i++) {
-                        
                         var book = user.books[i],
                             bookName = book.title,
                             block = $('.details .name a');
