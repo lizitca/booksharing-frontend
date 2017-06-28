@@ -43,7 +43,7 @@
 										</div>
 									</header>
 									<div id="login-box-inner">
-										<form role="form" action="index.html">
+										<form role="form" class="login-form">
 											<div class="input-group">
 												<span class="input-group-addon"><i class="fa fa-user"></i></span>
 												<input class="form-control auth-username" type="text" placeholder="Логин">
@@ -109,11 +109,13 @@
 	</div>
 	<script src="vendor/jquery/dist/jquery.min.js"></script>
 	<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="vendor/toastr/toastr.min.js"></script>
+	<script src="js/settings.js"></script>
 	<!-- this page specific inline scripts -->
 	<script type="text/javascript">	
-		var BACKEND = 'http://dusty.dusty';
 		$(function() {
-			$('.btn-login').click(function() {
+			$('.login-form').submit(function(e) {
+				e.preventDefault();
 				$.ajax({
 					url: BACKEND + '/api/user.login.php',
 					method: 'GET',
@@ -124,7 +126,8 @@
 					cache: false,
 					dataType: 'json'
 				}).done(function() {
-					document.location.href = 'profile.php';
+					toastr.success('Login successfull');
+					setTimeout(function() {document.location.href = 'profile.html'}, 1000);
 				}).fail(function() {
 					toastr.error('Username or password are not correct', 'Auth failed!')
 				});
