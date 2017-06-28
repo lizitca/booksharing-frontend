@@ -13,6 +13,8 @@
 	<!-- libraries -->
 	<link rel="stylesheet" type="text/css" href="vendor/font-awesome/css/font-awesome.min.css" />
 
+	<link rel="stylesheet" type="text/css" href="vendor/toastr/toastr.css"/>
+
 	<!-- global styles -->
 	<link rel="stylesheet" type="text/css" href="css/theme.css" />
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -42,18 +44,18 @@
 									</div>
 								</header>
 								<div id="login-box-inner">
-									<form role="form" action="registration-full.html">
+									<form role="form">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-user"></i></span>
-											<input class="form-control" type="text" placeholder="Логин">
+											<input class="form-control user-username" type="text" placeholder="Логин">
 										</div>
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-											<input type="password" class="form-control" placeholder="Пароль">
+											<input type="password" class="form-control user-password" placeholder="Пароль">
 										</div>
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-unlock-alt"></i></span>
-											<input type="password" class="form-control" placeholder="Пароль еще раз">
+											<input type="password" class="form-control user-password-repeat" placeholder="Пароль еще раз">
 										</div>
 										<div id="remember-me-wrapper">
 											<div class="row">
@@ -69,7 +71,7 @@
 										</div>
 										<div class="row">
 											<div class="col-xs-12">
-												<button type="submit" class="btn btn-success col-xs-12">Регистрация</button>
+												<button type="submit" class="btn btn-success col-xs-12 btn-register">Регистрация</button>
 											</div>
 										</div>
 									</form>
@@ -81,6 +83,37 @@
 			</div>
 		</div>
 	</div>
+	<script src="vendor/jquery/dist/jquery.min.js"></script>
+	<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="vendor/toastr/toastr.min.js"></script>
+	<script src="js/settings.js"></script>
+	<script>
+		$(function() {
+			$('.btn-register').click(function(e) {
+				e.preventDefault();
 
+				var password = $('.user-password').val();
+				if (password !== $('.user-password-repeat').val()) {
+					toastr.error('Passwords do not match!');
+					return;
+				}
+				$.ajax({
+					url: BACKEND + '/api/user.put.php',
+					method: 'GET',
+					data: {
+						username: $('.user-username').val(),
+						password: password
+					},
+					cache: false,
+					dataType: 'json'
+				}).done(function() {
+					toastr.success('Successfully registered, please wait you\'ve been redirecting to login page');
+					setTimeout(function() {document.location.href = 'login.html'});
+				}).fail(function(response) {
+					toastr.error(response.responseText, 'Register failed!')
+				});
+			});
+		});		
+	</script>
 </body>
 </html>
