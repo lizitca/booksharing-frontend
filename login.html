@@ -124,6 +124,9 @@
 						password: $('.auth-password').val()
 					},
 					cache: false,
+					xhrFields: {
+            		    withCredentials: true
+            		},
 					dataType: 'json'
 				}).done(function() {
 					toastr.success('Login successfull');
